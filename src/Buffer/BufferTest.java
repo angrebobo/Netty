@@ -1,3 +1,5 @@
+package Buffer;
+
 import java.nio.IntBuffer;
 
 /**
