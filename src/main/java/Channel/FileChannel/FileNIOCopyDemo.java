@@ -1,4 +1,4 @@
-package Channel;
+package Channel.FileChannel;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.nio.channels.FileChannel;
 
 /**
  * @author: HuangSiBo
- * @Description:
+ * @Description: FileChannel文件通道，用于文件的数据读写
  * @Data: Created in 21:38 2022/4/5
  */
 public class FileNIOCopyDemo {
