@@ -74,7 +74,7 @@ public class NIOSendClient {
 
     public static void main(String[] args) throws IOException {
         String sourcePath = "D:\\项目\\java-nio\\resource\\sourceFile.txt";
-        String destPath ="";
+        String destPath ="NIO_SEND.txt";
 
         NIOSendClient nioSendClient = new NIOSendClient();
         nioSendClient.sendFile(sourcePath, destPath);
