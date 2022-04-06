@@ -21,6 +21,11 @@ public class NIOSendClient {
     private String IP = "127.0.0.1";
     private int port = 8080;
 
+    /**
+     * @Description 向服务器传送文件
+     * @param
+     * @return
+     */
     public void sendFile(String sourcePath, String destPath) throws IOException {
         File file = new File(sourcePath);
         if(!file.exists()){
@@ -38,20 +43,24 @@ public class NIOSendClient {
         }
         System.out.println("Client连接成功");
 
-        ByteBuffer fileNameByteBuffer = charset.encode(destPath);
-        socketChannel.write(fileNameByteBuffer);
-
+        //发送文件名称
+        socketChannel.write( charset.encode(destPath) );
+        //发送文件长度
         ByteBuffer buffer = ByteBuffer.allocate(1024);
         buffer.putLong(file.length());
+        buffer.flip();
+        socketChannel.write(buffer);
+        buffer.clear();
 
         System.out.println("开始传输文件");
-        int len = 0;
+        int len;
         long progress = 0;
         while ((len=fileChannel.read(buffer)) > 0){
             buffer.flip();
             socketChannel.write(buffer);
             buffer.clear();
             progress += len;
+            //计算传输进度
             System.out.println("| " + (100 * progress)/file.length() + "% |");
         }
 
@@ -63,9 +72,11 @@ public class NIOSendClient {
         System.out.println("-----文件传输成功-----");
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String sourcePath = "D:\\项目\\java-nio\\resource\\sourceFile.txt";
-        String destPath =
+        String destPath ="";
 
+        NIOSendClient nioSendClient = new NIOSendClient();
+        nioSendClient.sendFile(sourcePath, destPath);
     }
 }
