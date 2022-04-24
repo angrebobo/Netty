@@ -3,14 +3,14 @@ package Buffer;
 import java.nio.IntBuffer;
 
 /**
- * @Description TODO
+ * @Description Buffer的使用
  * @Author HuangSiBo
  * @Date 2022/2/13 18:25
  **/
 public class BufferTest {
 
     public static void main(String[] args) {
-        IntBuffer intBuffer = IntBuffer.allocate(20);
+         IntBuffer intBuffer = IntBuffer.allocate(20);
 
         //使用allocate()方法，创建一个Buffer类的实例对象。
         System.out.println("-------------after allocate----------------");
@@ -46,7 +46,7 @@ public class BufferTest {
             if(i == 2) intBuffer.mark();
 
             int j = intBuffer.get();
-            System.out.print(i + " ");
+            System.out.print(j + " ");
         }
         System.out.println();
         System.out.println("position: " + intBuffer.position());
