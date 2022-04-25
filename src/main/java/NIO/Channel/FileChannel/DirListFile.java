@@ -1,4 +1,4 @@
-package Channel.FileChannel;
+package NIO.Channel.FileChannel;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.net.URLDecoder;
 
 /**
  * @author: HuangSiBo
- * @Description:
+ * @Description: 列出目录下的子目录及子文件
  * @Data: Created in 23:29 2022/4/23
  */
 public class DirListFile {

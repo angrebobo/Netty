@@ -1,4 +1,4 @@
-package Channel.FileChannel;
+package NIO.Channel.FileChannel;
 
 import java.io.File;
 import java.io.FileInputStream;

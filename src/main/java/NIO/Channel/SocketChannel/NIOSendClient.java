@@ -1,4 +1,4 @@
-package Channel.SocketChannel;
+package NIO.Channel.SocketChannel;
 
 import java.io.File;
 import java.io.FileInputStream;
