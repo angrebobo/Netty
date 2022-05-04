@@ -1,9 +1,11 @@
 package Netty.HTTP;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.*;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
@@ -31,7 +33,7 @@ public class NettyServer {
             System.out.println(".....服务器 is ready...");
 
             //绑定端口，sync()表明是异步方法
-            ChannelFuture channelFuture = serverBootstrap.bind(6668).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(8081).sync();
             //添加监听器
             channelFuture.addListener((ChannelFutureListener) future -> {
                 if (channelFuture.isSuccess())
