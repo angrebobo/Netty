@@ -1,4 +1,4 @@
-package NIO.Channel.SocketChannel;
+package NIO.Channel_Selector.SocketChannel;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

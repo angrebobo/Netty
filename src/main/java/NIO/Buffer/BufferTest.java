@@ -3,7 +3,8 @@ package NIO.Buffer;
 import java.nio.IntBuffer;
 
 /**
- * @Description Buffer的使用
+ * @Description Buffer的使用，文档链接
+ * https://weread.qq.com/web/reader/1e732510718f63a11e7dee2k37632cd021737693cfc7149
  * @Author HuangSiBo
  * @Date 2022/2/13 18:25
  **/

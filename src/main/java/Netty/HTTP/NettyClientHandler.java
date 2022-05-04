@@ -14,7 +14,8 @@ import java.nio.charset.StandardCharsets;
 public class NettyClientHandler extends SimpleChannelInboundHandler {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
-        ctx.writeAndFlush("我是客户端");
+        ctx.writeAndFlush("我是客户端1");
+        ctx.writeAndFlush("我是客户端2");
     }
 
     @Override

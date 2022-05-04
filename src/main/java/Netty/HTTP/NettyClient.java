@@ -5,6 +5,8 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 
 /**
@@ -15,6 +17,7 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 public class NettyClient {
     public static void main(String[] args) throws InterruptedException {
         EventLoopGroup group = new NioEventLoopGroup();
+        int port = 8081;
 
         try {
             Bootstrap bootstrap = new Bootstrap();
@@ -25,12 +28,14 @@ public class NettyClient {
                         protected void initChannel(SocketChannel ch) {
                             ChannelPipeline pipeline = ch.pipeline();
 //                            pipeline.addLast("encoder", new ProtobufEncoder());
+                            pipeline.addLast(new StringEncoder());
+                            pipeline.addLast(new StringDecoder());
                             pipeline.addLast(new NettyClientHandler()); //加入自己的处理器
                         }
                     });
             System.out.println("客户端 ok");
 
-            ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", 8081).sync();
+            ChannelFuture channelFuture = bootstrap.connect("localhost", port).sync();
             channelFuture.addListener((ChannelFutureListener) future -> {
                 if(channelFuture.isSuccess())
                     System.out.println("客户端" + channelFuture.hashCode() + "已成功连接到服务器");

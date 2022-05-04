@@ -21,6 +21,7 @@ public class NettyServer {
         //如果初始化不传入子线程参数，默认就是系统的核心线程数*2
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
+        int port = 8081;
 
         try {
             ServerBootstrap serverBootstrap = new ServerBootstrap();
@@ -33,13 +34,13 @@ public class NettyServer {
             System.out.println(".....服务器 is ready...");
 
             //绑定端口，sync()表明是异步方法
-            ChannelFuture channelFuture = serverBootstrap.bind(8081).sync();
+            ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
             //添加监听器
             channelFuture.addListener((ChannelFutureListener) future -> {
                 if (channelFuture.isSuccess())
-                    System.out.println("监听端口 6668 成功");
+                    System.out.println("监听端口 " + port + "成功");
                 else
-                    System.out.println("监听端口 6668 失败");
+                    System.out.println("监听端口 " + port + "失败");
             });
 
             channelFuture.channel().closeFuture().sync();

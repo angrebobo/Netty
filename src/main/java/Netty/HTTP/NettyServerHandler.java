@@ -17,16 +17,17 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<HttpObject> 
 
     @Override
     protected void messageReceived(ChannelHandlerContext ctx, HttpObject msg) {
-        if(msg instanceof HttpRequest){
+        System.out.println("msg 类型: " + msg.getClass());
+        /*if(msg instanceof HttpRequest){
             System.out.println("msg 类型: " + msg.getClass());
             System.out.println("客户端地址" + ctx.channel().remoteAddress());
 
-            ByteBuf byteBuf = Unpooled.copiedBuffer("hello, 我是服务器", StandardCharsets.UTF_8);
+            ByteBuf byteBuf = Unpooled.copiedBuffer("Hello! 我是服务器", StandardCharsets.UTF_8);
             FullHttpResponse httpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK, byteBuf);
             httpResponse.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain;charset=utf-8");
             httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, byteBuf.readableBytes()+"");
 
             ctx.writeAndFlush(httpResponse);
-        }
+        }*/
     }
 }

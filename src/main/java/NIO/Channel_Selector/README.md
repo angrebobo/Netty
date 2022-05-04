@@ -1,0 +1,2 @@
+channel和selector的文档链接
+https://weread.qq.com/web/reader/1e732510718f63a11e7dee2k8e232ec02198e296a067180

@@ -1,4 +1,4 @@
-package NIO.Channel.UDP;
+package NIO.Channel_Selector.UDP;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

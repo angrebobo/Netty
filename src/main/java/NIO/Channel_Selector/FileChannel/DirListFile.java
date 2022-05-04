@@ -1,4 +1,4 @@
-package NIO.Channel.FileChannel;
+package NIO.Channel_Selector.FileChannel;
 
 import java.io.File;
 import java.io.IOException;
