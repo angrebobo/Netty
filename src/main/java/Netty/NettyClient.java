@@ -26,7 +26,6 @@ public class NettyClient {
                         @Override
                         protected void initChannel(SocketChannel ch) {
                             ChannelPipeline pipeline = ch.pipeline();
-                            pipeline.addLast(new HttpServerCodec());
                             pipeline.addLast(new NettyClientHandler()); //加入自己的处理器
                         }
                     });

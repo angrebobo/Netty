@@ -15,11 +15,23 @@ import java.nio.charset.StandardCharsets;
  */
 public class NettyServerHandler extends SimpleChannelInboundHandler<HttpObject> {
 
+    //通道就绪事件
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, HttpObject msg) {
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+    }
+
+    //通道读取数据事件
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if(msg instanceof HttpRequest){
+            //输出一下ctx能获取到的信息
             System.out.println("msg 类型: " + msg.getClass());
             System.out.println("客户端地址" + ctx.channel().remoteAddress());
+            System.out.println("channel: " + ctx.channel());
+            System.out.println("pipeline: " + ctx.pipeline());
+            System.out.println("handler: " + ctx.handler());
+
 
             ByteBuf byteBuf = Unpooled.copiedBuffer("Hello! 我是服务器", StandardCharsets.UTF_8);
             FullHttpResponse httpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK, byteBuf);
@@ -28,5 +40,16 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<HttpObject> 
 
             ctx.writeAndFlush(httpResponse);
         }
+    }
+
+    //通道读取完毕事件
+    @Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        super.channelReadComplete(ctx);
+    }
+
+    @Override
+    protected void messageReceived(ChannelHandlerContext ctx, HttpObject msg) {
+
     }
 }
