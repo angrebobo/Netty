@@ -10,7 +10,11 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
  * @author: HuangSiBo
- * @Description:
+ *
+ * 用Netty实现一个简单的服务器
+ * 运行NettyServer类的main方法，开启服务器
+ * 然后在浏览器访问 http://localhost:8081/
+ *
  * @Data: Created in 15:41 2022/5/3
  */
 public class NettyServer {
@@ -29,7 +33,9 @@ public class NettyServer {
                     .channel(NioServerSocketChannel.class) //使用NioSocketChannel 作为服务器的通道实现
                     .option(ChannelOption.SO_BACKLOG, 128) //设置线程队列得到连接个数
                     .childOption(ChannelOption.SO_KEEPALIVE, true) //设置保持活动连接状态
-                    .childHandler(new ServerInitializer()); //给我们的workerGroup 的 EventLoop 对应的管道设置处理器
+                    //childHandler表示给workerGroup设置初始化方法，即childHandler会在客户端成功connect后才执行
+                    //Handler表示给bossGroup设置初始化方法，Handler在初始化时就会执行
+                    .childHandler(new ServerInitializer());
 
             System.out.println(".....服务器 is ready...");
 
