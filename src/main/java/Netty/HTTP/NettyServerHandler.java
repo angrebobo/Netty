@@ -26,11 +26,12 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<HttpObject> 
     public void channelRead(ChannelHandlerContext ctx, Object msg) {
         if(msg instanceof HttpRequest){
             //输出一下ctx能获取到的信息
-            System.out.println("msg 类型: " + msg.getClass());
-            System.out.println("客户端地址" + ctx.channel().remoteAddress());
-            System.out.println("channel: " + ctx.channel());
-            System.out.println("pipeline: " + ctx.pipeline());
-            System.out.println("handler: " + ctx.handler());
+            System.out.println("服务器读取线程" + Thread.currentThread().getName() + "  channel: " + ctx.channel());
+//            System.out.println("msg 类型: " + msg.getClass());
+//            System.out.println("客户端地址" + ctx.channel().remoteAddress());
+//            System.out.println("channel: " + ctx.channel());
+//            System.out.println("pipeline: " + ctx.pipeline());
+//            System.out.println("handler: " + ctx.handler());
 
 
             ByteBuf byteBuf = Unpooled.copiedBuffer("Hello! 我是服务器", StandardCharsets.UTF_8);
