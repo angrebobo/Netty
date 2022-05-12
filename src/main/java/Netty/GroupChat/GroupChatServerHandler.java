@@ -13,6 +13,8 @@ import java.util.Date;
 /**
  * @author: HuangSiBo
  * @Description:
+ * channelHandler的生命周期
+ * https://zhouze-java.github.io/2019/07/02/Netty-11-channelHandler%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/
  * @Data: Created in 14:54 2022/5/11
  */
 public class GroupChatServerHandler extends SimpleChannelInboundHandler<String> {
