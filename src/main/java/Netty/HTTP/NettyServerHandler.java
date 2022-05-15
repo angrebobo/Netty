@@ -34,10 +34,11 @@ public class NettyServerHandler extends SimpleChannelInboundHandler<HttpObject> 
 //            System.out.println("handler: " + ctx.handler());
 
 
-            ByteBuf byteBuf = Unpooled.copiedBuffer("Hello! 我是服务器", StandardCharsets.UTF_8);
-            FullHttpResponse httpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK, byteBuf);
+            ByteBuf buffer = ctx.alloc().buffer();
+            buffer.writeBytes("Hello! 我是服务器".getBytes());
+            FullHttpResponse httpResponse = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.OK, buffer);
             httpResponse.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/plain;charset=utf-8");
-            httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, byteBuf.readableBytes()+"");
+            httpResponse.headers().set(HttpHeaderNames.CONTENT_LENGTH, buffer.readableBytes() + "");
 
             ctx.writeAndFlush(httpResponse);
         }
