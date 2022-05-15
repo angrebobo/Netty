@@ -43,11 +43,16 @@ public class Client {
                                     ch.pipeline().addLast(new ChannelHandlerAdapter(){
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) {
-                                            ByteBuf buffer = ctx.alloc().buffer();
+                                            //粘包
                                             for (int i = 0; i < 10; i++) {
+                                                ByteBuf buffer = ctx.alloc().buffer();
                                                 buffer.writeBytes(new byte[]{0,1,2,3,4,5,6,7,8,9});
+                                                ctx.writeAndFlush(buffer);
                                             }
-                                            ctx.writeAndFlush(buffer);
+
+                                            //半包
+//                                            ByteBuf buffer = ctx.alloc().buffer();
+//                                            buffer.writeBytes(new byte[100]);
                                         }
                                     });
                                 }
