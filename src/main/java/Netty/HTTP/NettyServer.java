@@ -43,10 +43,10 @@ public class NettyServer {
             ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
             //添加监听器
             channelFuture.addListener((ChannelFutureListener) future -> {
-                if (channelFuture.isSuccess())
-                    System.out.println("监听端口 " + port + "成功");
+                if (future.isSuccess())
+                    System.out.println("监听端口 " + port + " 成功");
                 else
-                    System.out.println("监听端口 " + port + "失败");
+                    System.out.println("监听端口 " + port + " 失败");
             });
 
             channelFuture.channel().closeFuture().sync();
