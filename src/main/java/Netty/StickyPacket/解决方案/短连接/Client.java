@@ -1,4 +1,4 @@
-package Netty.StickyPacket;
+package Netty.StickyPacket.解决方案.短连接;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
@@ -6,8 +6,6 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
-import java.util.Scanner;
 
 /**
  * @author: HuangSiBo
@@ -25,8 +23,14 @@ public class Client {
     }
 
     public void run() throws InterruptedException {
-        EventLoopGroup group = new NioEventLoopGroup();
+        for (int i = 0; i < 10; i++) {
+            send();
+        }
+        System.out.println("finish");
+    }
 
+    private void send() throws InterruptedException {
+        EventLoopGroup group = new NioEventLoopGroup();
         try {
             Bootstrap bootstrap = new Bootstrap();
             bootstrap.group(group)
@@ -43,16 +47,10 @@ public class Client {
                                     ch.pipeline().addLast(new ChannelHandlerAdapter(){
                                         @Override
                                         public void channelActive(ChannelHandlerContext ctx) {
-                                            //粘包
-                                            for (int i = 0; i < 10; i++) {
-                                                ByteBuf buffer = ctx.alloc().buffer();
-                                                buffer.writeBytes(new byte[]{0,1,2,3,4,5,6,7,8,9});
-                                                ctx.writeAndFlush(buffer);
-                                            }
-
-                                            //半包
-//                                            ByteBuf buffer = ctx.alloc().buffer();
-//                                            buffer.writeBytes(new byte[100]);
+                                            ByteBuf buffer = ctx.alloc().buffer();
+                                            buffer.writeBytes(new byte[]{0,1,2,3,4,5,6,7,8,9});
+                                            ctx.writeAndFlush(buffer);
+                                            ctx.channel().close();
                                         }
                                     });
                                 }

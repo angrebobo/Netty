@@ -1,13 +1,13 @@
-package Netty.StickyPacket;
+package Netty.StickyPacket.解决方案.短连接;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -33,16 +33,15 @@ public class Server {
             ServerBootstrap bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    //把接收缓冲区设的小一点，可以测试“半包”现象
-//                    .option(ChannelOption.SO_RCVBUF, 5)
                     .childHandler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) {
+                            ch.pipeline().addLast(new FixedLengthFrameDecoder(10));
                             ch.pipeline().addLast(new LoggingHandler(LogLevel.INFO));
                         }
                     });
 
-            log.info(".....服务器 is ready...");
+            log.info("\n.....服务器 is ready...");
             ChannelFuture channelFuture = bootstrap.bind(port).sync();
             channelFuture.channel().closeFuture().sync();
         }
