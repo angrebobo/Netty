@@ -1,12 +1,12 @@
 package Netty.HTTP;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.*;
+import org.slf4j.LoggerFactory;
 
-import java.nio.charset.StandardCharsets;
+import java.util.logging.Logger;
 
 /**
  * @author: HuangSiBo
@@ -14,6 +14,8 @@ import java.nio.charset.StandardCharsets;
  * @Data: Created in 16:20 2022/5/3
  */
 public class NettyServerHandler extends SimpleChannelInboundHandler<HttpObject> {
+
+    Logger logger = (Logger) LoggerFactory.getLogger("NettyServerHandler");
 
     //通道就绪事件
     @Override
