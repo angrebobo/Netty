@@ -14,13 +14,20 @@ import java.util.List;
 /**
  * @author: HuangSiBo
  * @Description:
+ * 魔数，用来在第一时间判定是否是无效数据包
+ * 版本号，可以支持协议的升级
+ * 序列化算法，消息正文到底采用哪种序列化反序列化方式，可以由此扩展，例如：json、protobuf、hessian、jdk
+ * 指令类型，是登录、注册、单聊、群聊... 跟业务相关
+ * 请求序号，为了双工通信，提供异步能力
+ * 正文长度
+ * 消息正文
  * @Data: Created in 17:08 2022/5/24
  */
 @Slf4j
 public class MessageCodec extends ByteToMessageCodec<Message> {
     @Override
     public void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
-        // 1. 4 字节的魔数
+        // 1. 4 字节的魔数，魔数就是特殊的标记
         out.writeBytes(new byte[]{1, 2, 3, 4});
         // 2. 1 字节的版本,
         out.writeByte(1);
