@@ -1,5 +1,5 @@
 ## Netty教程  
-视频课程地址: https://www.bilibili.com/video/BV1py4y1E7oA
+视频课程地址: https://www.bilibili.com/video/BV1py4y1E7oA  
 本项目完成了课程中的小Demo，聊天室，RPC的简单实现
 
 ### Netty介绍
