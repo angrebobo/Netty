@@ -4,10 +4,7 @@ import Netty.GroupChat.protocol.MessageCodecSharable;
 import Netty.GroupChat.protocol.ProtocolFrameDecoder;
 import Netty.GroupChat.server.handler.*;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelDuplexHandler;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInitializer;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
@@ -42,7 +39,6 @@ public class ChatServer {
                 protected void initChannel(SocketChannel ch) {
                     ch.pipeline().addLast(new ProtocolFrameDecoder());
                     ch.pipeline().addLast(LOGGING_HANDLER);
-                    ch.pipeline().addLast(MESSAGE_CODEC);
                     // 用来判断是不是 读空闲时间过长，或 写空闲时间过长
                     // 5s 内如果没有收到 channel 的数据，会触发一个 IdleState#READER_IDLE 事件
                     ch.pipeline().addLast(new IdleStateHandler(20, 0, 0));
@@ -54,11 +50,12 @@ public class ChatServer {
                             IdleStateEvent event = (IdleStateEvent) evt;
                             // 触发了读空闲事件
                             if (event.state() == IdleState.READER_IDLE) {
-                                log.debug("已经 5s 没有读到数据了");
+                                log.debug("已经 20s 没有读到数据了");
                                 ctx.channel().close();
                             }
                         }
                     });
+                    ch.pipeline().addLast(MESSAGE_CODEC);
                     ch.pipeline().addLast(LOGIN_HANDLER);
                     ch.pipeline().addLast(CHAT_HANDLER);
                     ch.pipeline().addLast(GROUP_CREATE_HANDLER);

@@ -1,7 +1,5 @@
 package Netty.HeartBeat;
 
-import Netty.GroupChat.GroupChatServer;
-import Netty.GroupChat.GroupChatServerHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;

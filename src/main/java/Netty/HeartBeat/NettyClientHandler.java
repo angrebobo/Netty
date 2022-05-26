@@ -22,7 +22,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler {
      */
     @Override
     public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
-        System.out.println("客户端循环心跳监测发送: "+new Date());
+        System.out.println("客户端循环心跳监测发送: "+ new Date());
         if (evt instanceof IdleStateEvent){
             IdleStateEvent event = (IdleStateEvent)evt;
             if (event.state()== IdleState.WRITER_IDLE){

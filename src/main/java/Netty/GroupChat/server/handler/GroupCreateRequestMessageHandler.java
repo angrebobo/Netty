@@ -1,10 +1,10 @@
 package Netty.GroupChat.server.handler;
 
-import cn.itcast.message.GroupCreateRequestMessage;
-import cn.itcast.message.GroupCreateResponseMessage;
-import cn.itcast.server.session.Group;
-import cn.itcast.server.session.GroupSession;
-import cn.itcast.server.session.GroupSessionFactory;
+import Netty.GroupChat.message.GroupCreateRequestMessage;
+import Netty.GroupChat.message.GroupCreateResponseMessage;
+import Netty.GroupChat.server.session.Group;
+import Netty.GroupChat.server.session.GroupSession;
+import Netty.GroupChat.server.session.GroupSessionFactory;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -15,8 +15,9 @@ import java.util.Set;
 
 @ChannelHandler.Sharable
 public class GroupCreateRequestMessageHandler extends SimpleChannelInboundHandler<GroupCreateRequestMessage> {
+
     @Override
-    protected void channelRead0(ChannelHandlerContext ctx, GroupCreateRequestMessage msg) throws Exception {
+    protected void messageReceived(ChannelHandlerContext ctx, GroupCreateRequestMessage msg) throws Exception {
         String groupName = msg.getGroupName();
         Set<String> members = msg.getMembers();
         // 群管理器
